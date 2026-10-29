@@ -1,103 +1,140 @@
-lista = []
-valido = True
+#Programa CRUD de una LISTA
 
-while valido:
-    print("Selecciona dentro de tu preferencia \n1. Agregar \n2. Eliminar \n3. Salir")
+#Declaracion de variables inciales.
 
+mi_lista = []
+lista_menu = ["1. Agregar", "2. Lectura", "3. Modificar", "4. Eliminar", "5. Cerrar"]
+#Funciones.
+
+def separador():
+    print("-"*52)
+
+#Esto es simplemente para estetica en todo el codigo.
+def menu():
+    for r_menu in lista_menu:
+        print(r_menu)
+
+def l_lista():
+    print("Elementos de la lista.")
+    for r_lec in mi_lista:
+        print(r_lec)
+
+#Bucle principal.
+
+while True:
+    print("Bienvenido")
+    menu()
+    separador()
     try:
         selector = int(input("Escribe un numero dentro de tu preferencia: "))
+        separador()
     except ValueError:
-        print("No es un digito valido.")
-        input("...")
+        print("Ingresa un numero valido.")
+        input(...)
+        separador()
     else:
+
         match selector:
-            #Agregar elementos
             case 1:
-                #bucle 
-                while valido:
-                    #Captura excepciones
-                    try:
-                        print("\n Has seleccionado agregar.\n")
-                        print(f"La lista actual es: {lista}")
-                        #Analisa si la lista tiene contenido para indicar los elementos agregados.
-                        if lista:
-                            print("Escribe 'cerrar' para ir hacia atras.\n")
-                            agregar = input("Escribe algo: ")
-                            
-                            #Indica cierre de bucle
-                            if agregar.lower() == "cerrar":
-                                break
-
-                        #En caso de que no haya elementos   
-                        else:
-                            
-                            print("No hay elementos agregados")
-                            print("Escribe 'cerrar' para ir hacia atras.\n")
-                            agregar = input("Escribe algo: ")
-
-                            if agregar.lower() == "cerrar":
-                                break
-                    #Captura la excepcion
-                    except ValueError:
-                        print("No has ingresado algo valido.")
-                        print("---------------------------------------------------")
-                        input("...")
-                        
-                        
-                    #Si todo va bien, agrega el elemento a la lista
+                #Agregar elementos.
+                print("Has seleccionado agregar.\n")
+                while True:
+                    agregar = input("Escribe algo dentro de tu preferencia: ").strip()
+                    separador()
+                    if agregar.lower() == "cerrar":
+                        break
+                    elif agregar == "":
+                        print("No puede agregar elemento vacios.")
                     else:
-                        lista.append(agregar)
+                        mi_lista.append(agregar)
+                        print("Se ha agregado correctamente.")
+                    input("...")
+                    separador()
 
-                        print("Se ha agregado a la lista correctamente.")
-                        print(f"La lista actual es: {lista}")
-                        print("---------------------------------------------------")
-            #Eliminar elementos
             case 2:
-                while valido:
-                    try:
-                        print("\nHas seleccionado eliminar.\n")
-                        print(f"La lista actual es: {lista}")
-                        if lista:
-                            
-                            
-                            print("Escribe 'cerrar' para ir hacia atras.\n")
-                            eliminar = input("Escribe algo: ")
+                #Lectura de lista.
+                print("Has Sseleccionado leer de lista.\n")
+                if mi_lista:
 
-                        #Indica cierre de bucle
-                            if eliminar.lower() == "cerrar":
-                                break
+                    for r_lista in mi_lista:
+                        #Esto permitirá ver cada elemento y la cantidad exacta de letras de cada elemento
+                        print(f'"{r_lista}" tiene: {len(r_lista)} caracter/es.')
+                    l_conteo = len(mi_lista)
+                    print(f"La lista contiene: {l_conteo} elemento/s.")
+                    separador()
+                else:
+                    print("La lista no tiene elementos.")
+                    input("...")
+                    separador()
 
-                        #En caso de que no haya elementos   
-                        else:
-                            
-                            print("No hay elementos agregados")
-                            print("Escribe 'cerrar' para ir hacia atras.\n")
-                            eliminar = input("Escribe algo: ")
-
-                            if eliminar.lower() == "cerrar":
-                                break
-                    #Captura la excepcion
-                    except ValueError:
-                        print("No has ingresado algo valido.")
-                        print("---------------------------------------------------")
-                        input("...")
-                        
-                    #Si todo va bien, agrega el elemento a la lista
-                    else:
-                        if eliminar in lista:
-
-                            lista.remove(eliminar)
-                            print("Se ha eliminado de la lista correctamente.")
-                            print(f"La lista actual es: {lista}")
-                            print("---------------------------------------------------")
-
-                        else:
-                            print("No se encuentra el registro.")
-                            input("...")
             case 3:
-                print("Saliendo del sistema")
-                valido = False
+                #Modificar elementos de una lista.
+                if mi_lista:
+                    print("Has seleccionado modificar elementos. ")
+                    while True:
+                        l_lista()
+                        e_actual = input("Escribe el elemento que deseas modificar: ").strip()
+                        if e_actual.lower() == "cerrar":
+                            break
+                        elif e_actual == "":
+                            print("No es un elento valido.")
+                        else:
+                            if e_actual in mi_lista:
+                                print(f"El elemento seleccionado es: {e_actual}")
+                                e_nuevo = input("Escribe el elemento nuevo: ").strip()
+
+                                if e_nuevo.lower() == "cerrar":
+                                    continue
+                                elif e_nuevo == "":
+                                    print("Lo que ingresas no es valido.")
+                                else:
+                                    if e_nuevo:
+                                        posicion = mi_lista.index(e_actual)
+                                        mi_lista[posicion] = e_nuevo
+                                        print("Se ha actualizado el elemento.")
+                            else:
+                                print("El elemento no está en la lista.")
+                        input("...")
+                        l_lista()
+                        separador()
+                else:
+                    print("La lista no tiene elementos.")
+                    input("...")
+                    separador()
+            case 4:
+                #Eliminar elemento de una lista
+
+                if mi_lista:
+                    print("Has seleccionado eliminar elemento.")
+                    while True:
+                        l_lista()
+                        e_eliminar = input("Esrcibe el elemento que deseas eliminar: ").strip()
+
+                        if e_eliminar.lower() == "cerrar":
+                            break
+                        elif e_eliminar == "":
+                            print("No es un elemento valido.")
+                        else:
+                            if e_eliminar in mi_lista:
+                                mi_lista.remove(e_eliminar)
+                            else:
+                                print("No se encuentra en la lista.")
+                        input("...")
+                        l_lista()
+                        separador()
+                else:
+                    print("La lista está vacia")
+                    input("...")
+                    separador()
+            case 5:
+                #Cerrar sistema.
+                print("Cerrando sistema....")
                 break
 
-                            
-                        
+            case _:
+                print("Opción no válida. Selecciona un número del 1 al 5")
+                input("...")
+                separador()
+
+
+
